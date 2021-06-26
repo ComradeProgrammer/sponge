@@ -2,6 +2,8 @@
 #define SPONGE_LIBSPONGE_BYTE_STREAM_HH
 
 #include <string>
+#include<list>
+#include<sstream>
 
 //! \brief An in-order byte stream.
 
@@ -22,6 +24,7 @@ class ByteStream {
   public:
     //! Construct a stream with room for `capacity` bytes.
     ByteStream(const size_t capacity);
+    virtual ~ByteStream();
 
     //! \name "Input" interface for the writer
     //!@{
@@ -80,6 +83,14 @@ class ByteStream {
     //! Total number of bytes popped
     size_t bytes_read() const;
     //!@}
+
+    private:
+    size_t capacity;
+    std::list<char> buffer;
+    bool stop=false;
+
+    size_t readCount=0;
+    size_t writeCount=0;
 };
 
 #endif  // SPONGE_LIBSPONGE_BYTE_STREAM_HH
